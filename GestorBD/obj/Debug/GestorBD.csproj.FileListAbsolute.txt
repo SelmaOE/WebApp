@@ -1,0 +1,5 @@
+C:\BD\Programas\GestorBD\bin\Debug\GestorBD.dll
+C:\BD\Programas\GestorBD\bin\Debug\GestorBD.pdb
+C:\BD\Programas\GestorBD\obj\Debug\GestorBD.csprojResolveAssemblyReference.cache
+C:\BD\Programas\GestorBD\obj\Debug\GestorBD.dll
+C:\BD\Programas\GestorBD\obj\Debug\GestorBD.pdb
