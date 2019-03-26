@@ -23,14 +23,26 @@ public partial class DatosCliente : System.Web.UI.Page
             GestorBD = (GestorBD.GestorBD)Session["GestorBD"];
             rfc = Session["rfc"].ToString();
 
+            
+
             //Recupera y muestra los datos del cliente.
-            cadSql = "select * from PCUsuarios u, PCClientes c where u.rfc='" +
-              rfc + "' and u.rfc=c.rfc";
+            cadSql = "select * from PCUsuarios u, PCEmpleados e, PCClientes c where u.rfc='"+rfc+
+                "' and (e.rfc = u.rfc or u.rfc=c.rfc)";
             GestorBD.consBD(cadSql, DsGeneral, "Usuario");
             fila = DsGeneral.Tables["Usuario"].Rows[0];
-            TblUsuario.Rows[1].Cells[0].Text = fila["rfc"].ToString();
-            TblUsuario.Rows[1].Cells[1].Text = fila["nombre"].ToString();
-            TblUsuario.Rows[1].Cells[2].Text = fila["domicilio"].ToString();
+            string tipo = fila["tipo"].ToString();
+            if (tipo == "Cli") {
+                TblUsuario.Rows[1].Cells[0].Text = fila["rfc"].ToString();
+                TblUsuario.Rows[1].Cells[1].Text = fila["nombre"].ToString();
+                TblUsuario.Rows[1].Cells[2].Text = fila["domicilio"].ToString();
+            }
+            else
+            {
+                TblUsuario.Rows[1].Cells[0].Text = fila["rfc"].ToString();
+                TblUsuario.Rows[1].Cells[1].Text = fila["nombre"].ToString();
+                TblUsuario.Rows[1].Cells[2].Text = fila["categoría"].ToString();
+            }
+            
 
             //Carga en el DDL el folio de loes pedidos del cliente.
             cadSql = "select * from PCPedidos where rfcc='" + rfc + "'";

@@ -23,8 +23,7 @@ public partial class Menu : System.Web.UI.Page
             rfc = Session["rfc"].ToString();
 
             //Recupera y muestra los datos del cliente.
-            cadSql = "select * from PCUsuarios u, PCClientes c where u.rfc='" +
-              rfc + "' and u.rfc=c.rfc";
+            cadSql = "select * from PCUsuarios u where u.rfc='" + rfc+"'";
             GestorBD.consBD(cadSql, DsGeneral, "Usuario");
             fila = DsGeneral.Tables["Usuario"].Rows[0];
             string tipo = fila["tipo"].ToString();

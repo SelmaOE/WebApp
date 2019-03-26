@@ -23,7 +23,7 @@
             <asp:TableRow runat="server">
                 <asp:TableCell runat="server">RFC</asp:TableCell>
                 <asp:TableCell runat="server">Nombre</asp:TableCell>
-                <asp:TableCell runat="server">Domicilio</asp:TableCell>
+                <asp:TableCell runat="server">Domicilio/Categoria</asp:TableCell>
             </asp:TableRow>
             <asp:TableRow runat="server">
                 <asp:TableCell runat="server"></asp:TableCell>
