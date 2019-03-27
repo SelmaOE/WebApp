@@ -19,6 +19,8 @@
     <form id="form1" runat="server">
     <div>
         <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="Large" style="z-index: 1; left: 346px; top: 64px; position: absolute" Text="Información del Cliente"></asp:Label>
+        <asp:DropDownList ID="DdlCli" runat="server" AutoPostBack="True"  style="z-index: 1; left: 576px; top: 63px; position: absolute" OnSelectedIndexChanged="DdlCli_SelectedIndexChanged" Visible="False">
+        </asp:DropDownList>
         <asp:Table ID="TblUsuario" runat="server" GridLines="Both" style="z-index: 1; left: 266px; top: 112px; position: absolute; height: 54px; width: 364px">
             <asp:TableRow runat="server">
                 <asp:TableCell runat="server">RFC</asp:TableCell>
