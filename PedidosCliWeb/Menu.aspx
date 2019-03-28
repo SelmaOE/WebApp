@@ -15,7 +15,7 @@
     </div>
         <p>
             <asp:Button ID="BtnDatosCli" runat="server" OnClick="BtnDatosCli_Click" style="position: relative; top: 1px; left: 277px" Text="Datos Cliente" />
-            <asp:Button ID="Button2" runat="server" style="position: relative; top: 1px; left: 515px" Text="Button" />
+            <asp:Button ID="BtnAlta" runat="server" style="position: relative; top: 1px; left: 515px" Text="Alta Pedido" OnClick="BtnAlta_Click" />
         </p>
     </form>
 </body>

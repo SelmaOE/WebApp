@@ -27,15 +27,20 @@ public partial class Menu : System.Web.UI.Page
             GestorBD.consBD(cadSql, DsGeneral, "Usuario");
             fila = DsGeneral.Tables["Usuario"].Rows[0];
             string tipo = fila["tipo"].ToString();
-            /*if (tipo == "Cli")
+            if (tipo == "Ger")
             {
-                BtnDatosCli.Visible = false;
-            }*/
+                BtnAlta.Visible = false;
+            }
         }
     }
 
     protected void BtnDatosCli_Click(object sender, EventArgs e)
     {
         Server.Transfer("DatosCliente.aspx");
+    }
+
+    protected void BtnAlta_Click(object sender, EventArgs e)
+    {
+        Server.Transfer("AltaPedidos.aspx");
     }
 }

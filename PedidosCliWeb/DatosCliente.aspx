@@ -19,8 +19,7 @@
     <form id="form1" runat="server">
     <div>
         <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="Large" style="z-index: 1; left: 346px; top: 64px; position: absolute" Text="Información del Cliente"></asp:Label>
-        <asp:DropDownList ID="DdlCli" runat="server" AutoPostBack="True"  style="z-index: 1; left: 576px; top: 63px; position: absolute" OnSelectedIndexChanged="DdlCli_SelectedIndexChanged" Visible="False">
-        </asp:DropDownList>
+        
         <asp:Table ID="TblUsuario" runat="server" GridLines="Both" style="z-index: 1; left: 266px; top: 112px; position: absolute; height: 54px; width: 364px">
             <asp:TableRow runat="server">
                 <asp:TableCell runat="server">RFC</asp:TableCell>
@@ -33,8 +32,11 @@
                 <asp:TableCell runat="server"></asp:TableCell>
             </asp:TableRow>
         </asp:Table>
-        <asp:Label ID="Label2" runat="server" style="z-index: 1; left: 286px; top: 216px; position: absolute" Text="Pedidos:"></asp:Label>
-        <asp:DropDownList ID="DdlPedidos" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DdlPedidos_SelectedIndexChanged" style="z-index: 1; left: 399px; top: 212px; position: absolute">
+        <asp:Label ID="Label3" runat="server" style="z-index: 1; left: 287px; top: 200px; position: absolute" Text="Clientes:" Visible="False"></asp:Label>
+        <asp:DropDownList ID="DdlCli" runat="server" AutoPostBack="True"  style="z-index: 1; left: 398px; top: 197px; position: absolute" OnSelectedIndexChanged="DdlCli_SelectedIndexChanged" Visible="False">
+        </asp:DropDownList>
+        <asp:Label ID="Label2" runat="server" style="z-index: 1; left: 287px; top: 242px; position: absolute" Text="Pedidos:"></asp:Label>
+        <asp:DropDownList ID="DdlPedidos" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DdlPedidos_SelectedIndexChanged" style="z-index: 1; left: 399px; top: 235px; position: absolute">
         </asp:DropDownList>
         <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Menu.aspx" style="z-index: 1; left: 26px; top: 695px; position: absolute">Volver al Menú</asp:HyperLink>
         <asp:Table ID="TblPedido" runat="server" GridLines="Both" style="z-index: 1; left: 187px; top: 277px; position: absolute; height: 54px; width: 509px">

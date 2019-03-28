@@ -32,10 +32,17 @@ public partial class DatosCliente : System.Web.UI.Page
             fila = DsGeneral.Tables["Usuario"].Rows[0];
             tipo = fila["tipo"].ToString();
             Session["tipo"] = tipo;
+
             if (tipo == "Ger") {
 
+                Label3.Visible = true;
                 DdlCli.Visible = true;
+                Label2.Visible = false;
                 DdlPedidos.Visible = false;
+
+                TblUsuario.Rows[1].Cells[0].Text = fila["rfc"].ToString();
+                TblUsuario.Rows[1].Cells[1].Text = fila["nombre"].ToString();
+                TblUsuario.Rows[1].Cells[2].Text = fila["categoría"].ToString();
 
                 //Carga en el DDL el nombre de los clientes
                 cadSql = "select * from PCClientes c, PCUsuarios u where u.rfc=c.rfc";
@@ -75,39 +82,29 @@ public partial class DatosCliente : System.Web.UI.Page
         }
     }
 
+    protected void DdlCli_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GestorBD = (GestorBD.GestorBD)Session["GestorBD"];
+
+        //Carga en el DDL el folio de los pedidos del cliente seleccionado.
+        cadSql = "select * from PCUsuarios u, PCPedidos p where u.nombre='" + DdlCli.Text + "' and p.rfcc=u.rfc";
+        GestorBD.consBD(cadSql, DsPedidos, "Pedidos");
+        objCom.cargaDDL(DdlPedidos, DsPedidos, "Pedidos", "FolioP");
+        Session["DsPedidos"] = DsPedidos;
+
+        Label2.Visible = true;
+        DdlPedidos.Visible = true;
+    }
+
     protected void DdlPedidos_SelectedIndexChanged(object sender, EventArgs e)
     {
         GestorBD = (GestorBD.GestorBD)Session["GestorBD"];
         DsPedidos = (DataSet)Session["DsPedidos"];
 
-        //Primera alternativa: consultando de nuevo a la BD (puede ser costoso, aunque con
-        //datos actuales).
-        rfc = Session["rfc"].ToString();
-        tipo= Session["tipo"].ToString();
-        //FALTA CHECAR QUE ESTE SELECCIONADO ALGUN CLIENTE
-        if (tipo == "Ger") {
-            cadSql = "select * from PCPedidos p where p.foliop = "+DdlPedidos.SelectedItem;
-            GestorBD.consBD(cadSql, DsPedidos, "Pedidos");
-            fila = DsPedidos.Tables["Pedidos"].Rows[0];
-        }
-        else {
+        cadSql = "select * from PCPedidos where foliop = "+DdlPedidos.Text;
+        GestorBD.consBD(cadSql, DsPedidos, "Pedidos");
+        fila = DsPedidos.Tables["Pedidos"].Rows[0];
 
-            if (tipo == "Cli") {
-                cadSql = "select * from PCPedidos where RFCC='" + rfc +
-              "' and FolioP=" + DdlPedidos.Text;
-                GestorBD.consBD(cadSql, DsPedidos, "Pedidos");
-                fila = DsPedidos.Tables["Pedidos"].Rows[0];
-
-
-            }
-            else {
-                cadSql = "select * from PCPedidos where RFCE='" + rfc +
-              "' and FolioP=" + DdlPedidos.Text;
-                GestorBD.consBD(cadSql, DsPedidos, "Pedidos");
-                fila = DsPedidos.Tables["Pedidos"].Rows[0];
-
-            }
-        }
         TblPedido.Rows[1].Cells[0].Text = fila["FolioP"].ToString();
         TblPedido.Rows[1].Cells[1].Text = fila["FechaPed"].ToString();
         TblPedido.Rows[1].Cells[2].Text = fila["Monto"].ToString();
@@ -130,15 +127,5 @@ public partial class DatosCliente : System.Web.UI.Page
 
     }
 
-    protected void DdlCli_SelectedIndexChanged(object sender, EventArgs e) {
-        GestorBD = (GestorBD.GestorBD)Session["GestorBD"];
-
-        //Carga en el DDL el folio de los pedidos del cliente seleccionado.
-        cadSql = "select * from PCUsuarios u, PCPedidos p where u.nombre='" + DdlCli.SelectedItem + "' and p.rfcc=u.rfc";
-        GestorBD.consBD(cadSql, DsPedidos, "Pedidos");
-        objCom.cargaDDL(DdlPedidos, DsPedidos, "Pedidos", "FolioP");
-        Session["DsPedidos"] = DsPedidos;
-
-        DdlPedidos.Visible = true;
-    }
+   
 }
