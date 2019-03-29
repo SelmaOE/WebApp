@@ -45,7 +45,7 @@ public partial class DatosCliente : System.Web.UI.Page
                 TblUsuario.Rows[1].Cells[2].Text = fila["categoría"].ToString();
 
                 //Carga en el DDL el nombre de los clientes
-                cadSql = "select * from PCClientes c, PCUsuarios u where u.rfc=c.rfc";
+                cadSql = "select * from PCUSUARIOS where tipo='Cli'";
                 GestorBD.consBD(cadSql, DsClientes, "Clientes");
                 objCom.cargaDDL(DdlCli, DsClientes, "Clientes", "Nombre");
                 Session["DsClientes"] = DsClientes;
@@ -85,9 +85,12 @@ public partial class DatosCliente : System.Web.UI.Page
     protected void DdlCli_SelectedIndexChanged(object sender, EventArgs e)
     {
         GestorBD = (GestorBD.GestorBD)Session["GestorBD"];
+        DsClientes = (DataSet)Session["DsClientes"];
+        fila = DsClientes.Tables["Clientes"].Rows[DdlCli.SelectedIndex-1];
 
+        string rfcc = fila["rfc"].ToString();
         //Carga en el DDL el folio de los pedidos del cliente seleccionado.
-        cadSql = "select * from PCUsuarios u, PCPedidos p where u.nombre='" + DdlCli.Text + "' and p.rfcc=u.rfc";
+        cadSql = "select * from PCPedidos where rfcc='" + rfcc + "'";
         GestorBD.consBD(cadSql, DsPedidos, "Pedidos");
         objCom.cargaDDL(DdlPedidos, DsPedidos, "Pedidos", "FolioP");
         Session["DsPedidos"] = DsPedidos;
