@@ -149,16 +149,24 @@ public partial class AltaPedidos : System.Web.UI.Page
             }
 
             //GestorBD.altaBD(cadSql);
-
+            
             if (GestorBD.altaBD(cadSql) == OK)
             {
+                int entrega = 0;
                 for (int f = 0; idarts.Count > f; f++)
                 {
                     //Alta de Detalles
-                    cadSql = "insert into PCDetalle values (" + folio + "," + idarts[f] + "," + Narts[f] + ","+cantact[f] +")";
-                    GestorBD.altaBD(cadSql);
-                    LblMensaje.Text = "Alta exitosa";
+                    if (Narts[f] <= cantact[f])
+                        entrega = Narts[f];
+                    else
+                        entrega = cantact[f];
 
+                    cadSql = "insert into PCDetalle values (" + folio + "," + idarts[f] + "," + Narts[f] + ","+entrega +")";
+                    var v = GestorBD.altaBD(cadSql);
+                    LblMensaje.Text = "Alta exitosa";
+                    //Actualizar cantidad
+                    cadSql = "update PCArtículos p set p.cantAct = (p.cantAct - " + entrega + ") where idArt = " + idarts[f];
+                    GestorBD.altaBD(cadSql);
                 }
 
                 cadSql = "select * from PCPedidos where foliop = " + folio;
